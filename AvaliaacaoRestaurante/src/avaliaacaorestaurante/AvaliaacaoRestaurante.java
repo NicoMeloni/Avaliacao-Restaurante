@@ -4,10 +4,6 @@
  */
 package avaliaacaorestaurante;
 
-/**
- *
- * @author Nicopau
- */
 public class AvaliaacaoRestaurante {
 
     /**
