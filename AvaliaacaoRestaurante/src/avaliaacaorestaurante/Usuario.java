@@ -55,5 +55,11 @@ public class Usuario {
         this.idUsuario = idUsuario;
     }
     
-    
+    public static ArrayList<Usuario> getListaUsuarios() {
+        return listaUsuarios;
+    }
+
+    public static void setListaUsuarios(ArrayList<Usuario> listaUsuarios) {
+        Usuario.listaUsuarios = listaUsuarios;
+    }
 }
