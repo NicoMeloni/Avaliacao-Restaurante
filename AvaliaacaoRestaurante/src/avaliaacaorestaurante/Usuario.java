@@ -4,11 +4,6 @@
  */
 package avaliaacaorestaurante;
 
-/**
- *
- * @author Nicopau
- */
-
 public class Usuario {
     protected String usuario, senha, dataCadastro;
     protected int idUsuario;
