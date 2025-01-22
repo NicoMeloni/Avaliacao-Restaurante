@@ -768,6 +768,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
         pnlMinhasAvaliacoes.setVisible(false);
         pnlMeusRestaurantes.setVisible(false);
         pnlFazerAvaliacao.setVisible(false);
+
+        txtUsuarioLogin.setText("");
+        txtSenhaLogin.setText("");
     }                                                     
 
     /**
