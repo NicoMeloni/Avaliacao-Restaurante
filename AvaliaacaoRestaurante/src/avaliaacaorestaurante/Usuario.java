@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class Usuario {
     protected String usuario, senha, dataCadastro;
     protected int idUsuario;
-    
+    private ArrayList<Avaliacao> listaAvaliacoes = new ArrayList<>();
     private static ArrayList<Usuario> listaUsuarios = new ArrayList<>();
 
     
@@ -69,4 +69,14 @@ public class Usuario {
     public static void setListaUsuarios(ArrayList<Usuario> listaUsuarios) {
         Usuario.listaUsuarios = listaUsuarios;
     }
+
+    public ArrayList<Avaliacao> getListaAvaliacoes() {
+        return listaAvaliacoes;
+    }
+
+    public void setListaAvaliacoes(ArrayList<Avaliacao> listaAvaliacoes) {
+        this.listaAvaliacoes = listaAvaliacoes;
+    }
+    
+    
 }
