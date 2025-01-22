@@ -10,4 +10,16 @@ public class ServicoAvaliacao {
         int resposta = acesso.criar(avaliacao);
         return resposta;
     }
+    public static Avaliacao buscarPorId(int idAvaliacao){
+        AvaliacaoDAOLite acesso = new AvaliacaoDAOLite();
+        return acesso.buscarPorId(idAvaliacao);        
+    }
+    public static boolean apagar(int idAvaliacao){
+        AvaliacaoDAOLite acesso = new AvaliacaoDAOLite();
+        return acesso.apagar(idAvaliacao);
+    }
+    public static boolean atualizar(Avaliacao avaliacao, int idAvaliacao){
+        AvaliacaoDAOLite acesso = new AvaliacaoDAOLite();
+        return acesso.atualizar(avaliacao, idAvaliacao);
+    }
 }

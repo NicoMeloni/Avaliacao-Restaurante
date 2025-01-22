@@ -11,6 +11,7 @@ import javax.swing.table.TableModel;
 import modelos.Avaliacao;
 import modelos.Restaurante;
 import modelos.Usuario;
+import permanencia.sqlite.AvaliacaoDAOLite;
 import servicos.ServicoAvaliacao;
 import servicos.ServicoRestaurante;
 import servicos.ServicoUsuario;
@@ -424,6 +425,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
+        tblMinhasAvaliacoes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblMinhasAvaliacoesMouseClicked(evt);
+            }
+        });
         jScrollPane3.setViewportView(tblMinhasAvaliacoes);
 
         btnVoltarMinhasAvaliacoes.setText("VOLTAR");
@@ -440,7 +446,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         });
 
-        btnSalvarMinhasAvaliacoes.setText("SAVAR");
+        btnSalvarMinhasAvaliacoes.setText("SALVAR");
+        btnSalvarMinhasAvaliacoes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalvarMinhasAvaliacoesActionPerformed(evt);
+            }
+        });
 
         btnExcluirMinhasAvaliacoes.setText("EXCLUIR");
         btnExcluirMinhasAvaliacoes.addActionListener(new java.awt.event.ActionListener() {
@@ -472,6 +483,17 @@ public class TelaPrincipal extends javax.swing.JFrame {
         pnlMinhasAvaliacoes.setLayout(pnlMinhasAvaliacoesLayout);
         pnlMinhasAvaliacoesLayout.setHorizontalGroup(
             pnlMinhasAvaliacoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlMinhasAvaliacoesLayout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addComponent(btnVoltarMinhasAvaliacoes)
+                .addGap(264, 264, 264)
+                .addGroup(pnlMinhasAvaliacoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel7)
+                    .addGroup(pnlMinhasAvaliacoesLayout.createSequentialGroup()
+                        .addComponent(txtBuscarMinhasAvaliacoes, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnBuscarMinhasAvaliacoes, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(pnlMinhasAvaliacoesLayout.createSequentialGroup()
                 .addGroup(pnlMinhasAvaliacoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlMinhasAvaliacoesLayout.createSequentialGroup()
@@ -492,24 +514,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
                                     .addComponent(txtComentarioMinhasAvaliacoes, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(38, 38, 38)
                                 .addGroup(pnlMinhasAvaliacoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtNotaMinhasAvaliacoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel6)))))
-                    .addGroup(pnlMinhasAvaliacoesLayout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addComponent(btnVoltarMinhasAvaliacoes)
-                        .addGap(264, 264, 264)
-                        .addGroup(pnlMinhasAvaliacoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel7)
-                            .addGroup(pnlMinhasAvaliacoesLayout.createSequentialGroup()
-                                .addComponent(txtBuscarMinhasAvaliacoes, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnBuscarMinhasAvaliacoes, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                    .addComponent(jLabel6)
+                                    .addComponent(txtNotaMinhasAvaliacoes, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                 .addContainerGap(129, Short.MAX_VALUE))
         );
         pnlMinhasAvaliacoesLayout.setVerticalGroup(
             pnlMinhasAvaliacoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlMinhasAvaliacoesLayout.createSequentialGroup()
-                .addGap(17, 17, 17)
+                .addGap(4, 4, 4)
                 .addGroup(pnlMinhasAvaliacoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnVoltarMinhasAvaliacoes, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7))
@@ -527,7 +539,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 .addGroup(pnlMinhasAvaliacoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtComentarioMinhasAvaliacoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtNotaMinhasAvaliacoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
                 .addGroup(pnlMinhasAvaliacoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnEditarMinhasAvaliacoes, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnSalvarMinhasAvaliacoes, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -834,7 +846,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         
         if (!conteudo.isBlank() && ehNotaValida(sNota) && restauranteEscolhido != -1){
             float nota = Float.parseFloat(sNota);
-            TableModel modelo = tblRestauranteAvaliacao.getModel(); 
+            /*TableModel modelo = tblRestauranteAvaliacao.getModel();*/ 
             int idRestaurante = (int) tblRestauranteAvaliacao.getValueAt(restauranteEscolhido, 0);
             ServicoAvaliacao.criaAvaliacao( ServicoUsuario.getUsuarioAtual().getIdUsuario(), idRestaurante, conteudo, nota);
             JOptionPane.showMessageDialog(null, "Avaliação registrada com sucesso",
@@ -936,13 +948,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEditarMinhasAvaliacoesActionPerformed
 
     private void btnExcluirMinhasAvaliacoesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirMinhasAvaliacoesActionPerformed
-        /*int i = tblMinhasAvaliacoes.getSelectedRow();
+        int i = tblMinhasAvaliacoes.getSelectedRow();
                 
-        if(i>=0 && i<usuarioAtual.getListaAvaliacoes().size()){
+        if(i != -1){
             int opcaoSelecionada = JOptionPane.showConfirmDialog(null, "Deseja remover a avaliação selecionada?", "Confirmação de Remoção", JOptionPane.YES_NO_OPTION);
             if(opcaoSelecionada == JOptionPane.YES_OPTION){
-                Avaliacao removida = usuarioAtual.getListaAvaliacoes().get(i);
-                usuarioAtual.getListaAvaliacoes().remove(removida);
+                ServicoAvaliacao.apagar( (int) tblMinhasAvaliacoes.getValueAt(i, 0));
             }
         }
         
@@ -954,22 +965,54 @@ public class TelaPrincipal extends javax.swing.JFrame {
         txtComentarioMinhasAvaliacoes.setText("");
         txtNotaMinhasAvaliacoes.setText("");
         
-        carregarTblMinhasAvaliacoes(usuarioAtual);*/
+        carregarTblMinhasAvaliacoes(ServicoUsuario.getUsuarioAtual());
     }//GEN-LAST:event_btnExcluirMinhasAvaliacoesActionPerformed
 
     private void btnBuscarMinhasAvaliacoesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarMinhasAvaliacoesActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnBuscarMinhasAvaliacoesActionPerformed
+
+    private void btnSalvarMinhasAvaliacoesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarMinhasAvaliacoesActionPerformed
+        btnExcluirMinhasAvaliacoes.setEnabled(false);
+        btnSalvarMinhasAvaliacoes.setEnabled(false);
+        btnEditarMinhasAvaliacoes.setEnabled(false);
+        txtComentarioMinhasAvaliacoes.setEnabled(false);
+        txtNotaMinhasAvaliacoes.setEnabled(false);
+        
+        int index = tblMinhasAvaliacoes.getSelectedRow();
+        int id = (int) tblMinhasAvaliacoes.getValueAt(index, 0);
+        
+        Avaliacao avaliacao = ServicoAvaliacao.buscarPorId(id);
+        avaliacao.setConteudo(txtComentarioMinhasAvaliacoes.getText());
+        avaliacao.setNota(Float.parseFloat(txtNotaMinhasAvaliacoes.getText()));
+        boolean resposta  = ServicoAvaliacao.atualizar(avaliacao, id);
+        // Talvez colocar uma verificação
+        carregarTblMinhasAvaliacoes(ServicoUsuario.getUsuarioAtual());
+    }//GEN-LAST:event_btnSalvarMinhasAvaliacoesActionPerformed
+
+    private void tblMinhasAvaliacoesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblMinhasAvaliacoesMouseClicked
+        btnExcluirMinhasAvaliacoes.setEnabled(true);
+        btnSalvarMinhasAvaliacoes.setEnabled(false);
+        btnEditarMinhasAvaliacoes.setEnabled(true);
+        txtComentarioMinhasAvaliacoes.setEnabled(false);
+        txtNotaMinhasAvaliacoes.setEnabled(false);
+        
+        int i = tblMinhasAvaliacoes.getSelectedRow();
+        if(i != -1){
+            txtComentarioMinhasAvaliacoes.setText( (String) tblMinhasAvaliacoes.getValueAt(i, 2));
+            txtNotaMinhasAvaliacoes.setText(  Float.toString( (float) tblMinhasAvaliacoes.getValueAt(i, 3)));
+        }
+    }//GEN-LAST:event_tblMinhasAvaliacoesMouseClicked
     
     // Utils pnlMain Cadastrado
     /*NIOCLAS*/
     public void carregarTblMinhasAvaliacoes(Usuario usuario){
-        DefaultTableModel modelo = new DefaultTableModel(new Object[] {"Restaurante","Comentário","Nota"}, 0);
+        DefaultTableModel modelo = new DefaultTableModel(new Object[] {"ID", "Restaurante","Comentário","Nota"}, 0);
         System.out.println(ServicoUsuario.getUsuarioAtual().getIdUsuario());
         ArrayList<Avaliacao> avaliacoes = ServicoUsuario.buscarAvaliacoes(ServicoUsuario.getUsuarioAtual().getIdUsuario());
         System.out.println(avaliacoes);
         for (Avaliacao avaliacao : avaliacoes){
-            Object linha[] = new Object[] {ServicoRestaurante.buscarNomeRestaurante(avaliacao.getIdRestaurante()),avaliacao.getConteudo(),avaliacao.getNota(), "--"};
+            Object linha[] = new Object[] { avaliacao.getIdAvaliacao(),ServicoRestaurante.buscarNomeRestaurante(avaliacao.getIdRestaurante()),avaliacao.getConteudo(),avaliacao.getNota(), "--"};
             
             modelo.addRow(linha);
         }
