@@ -15,6 +15,9 @@ public class TelaVisualizarMenu extends javax.swing.JFrame {
      */
     public TelaVisualizarMenu() {
         initComponents();
+        /*NICOLAS - edição*/
+        setLocationRelativeTo(null);
+        /*NICOLAS - edição*/
     }
 
     /**
