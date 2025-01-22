@@ -1,17 +1,16 @@
 package modelos;
 
 public class Usuario {
-    protected String nome, senha, email, dataCadastro;
+    protected String nomeUsuario, senha, email, dataCadastro;
     protected int idUsuario;
     
-    public Usuario(String nome, String senha, String email) {
-        this.nome = nome;
+    public Usuario(String nome, String senha) {
+        this.nomeUsuario = nome;
         this.senha = senha;
-        this.email = email;
     }
 
     public Usuario(String nome, String senha, String email, int idUsuario, String dataCadastro) {
-        this.nome = nome;
+        this.nomeUsuario = nome;
         this.senha = senha;
         this.email = email;
         this.idUsuario = idUsuario;
@@ -20,22 +19,21 @@ public class Usuario {
     
     @Override
     public String toString(){
-        return String.format(
-                """
+        return String.format("""
                 idUsuario: %s
                 nome: %s
                 senha: %s
                 email: %s
                 data: %s
-                """, (this.idUsuario != 0 ? this.idUsuario : ""),nome, senha, email, dataCadastro);
+                """, (this.idUsuario != 0 ? this.idUsuario : ""),nomeUsuario, senha, email, dataCadastro);
     }
 
-    public String getNome() {
-        return nome;
+    public String getNomeUsuario() {
+        return nomeUsuario;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setNomeUsuario(String nomeUsuario) {
+        this.nomeUsuario = nomeUsuario;
     }
 
     public String getSenha() {
@@ -69,6 +67,4 @@ public class Usuario {
     public void setIdUsuario(int idUsuario) {
         this.idUsuario = idUsuario;
     }
-    
-    
 }

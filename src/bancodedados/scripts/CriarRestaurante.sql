@@ -3,7 +3,7 @@ CREATE TABLE IF NOT EXISTS restaurante(
     nome TEXT NOT NULL,
     descricao TEXT,
     temEntrega INTEGER,
-    localizacao TEXT NOT NULL,
+    localizacao TEXT,
     idUsuario INTEGER NOT NULL,
     FOREIGN KEY (idUsuario) REFERENCES usuario(idUsuario)
         ON DELETE CASCADE

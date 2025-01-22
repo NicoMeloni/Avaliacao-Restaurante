@@ -10,13 +10,13 @@ import servicos.ServicoUsuario;
 import telas.TelaPrincipal;
 import java.sql.ResultSet;
 import permanencia.sqlite.RestauranteDAOLite;
+import permanencia.sqlite.UsuarioDAOLite;
 
 
 public class Main {
 
     public static void main(String[] args) {
-        ServicoUsuario.setSessaoUsuario(new Usuario("joao", "6969", "huebr@gmail.com"));
-        TelaPrincipal main = new TelaPrincipal();
-        main.setVisible(true);
+        TelaPrincipal tela = new TelaPrincipal();
+        tela.setVisible(true);
     }
 }

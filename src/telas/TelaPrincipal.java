@@ -9,6 +9,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import modelos.Restaurante;
+import modelos.Usuario;
 import servicos.ServicoAvaliacao;
 import servicos.ServicoRestaurante;
 import servicos.ServicoUsuario;
@@ -728,7 +729,40 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_lblCriarContaMouseClicked
 
     private void btnAcessarLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAcessarLoginActionPerformed
+        //==============================NICOLAS
+        String usuario = txtUsuarioLogin.getText();
+        String senha = txtSenhaLogin.getText();
         
+        Usuario usuarioEncontrado = ServicoUsuario.getListaUsuarios().stream()
+            .filter(u -> u.getNomeUsuario().equals(usuario))
+            .findFirst()
+            .orElse(null);
+        
+        if (usuarioEncontrado != null) {
+            if (usuarioEncontrado.getSenha().equals(senha)){
+                
+                ServicoUsuario.usuarioAtual = usuarioEncontrado;
+                pnlLogin.setVisible(false);
+                pnlMainCadastrado.setVisible(true);
+                pnlRestaurantes.setVisible(false);
+                pnlMainVisitante.setVisible(false);
+                pnlMinhasAvaliacoes.setVisible(false);
+                pnlMeusRestaurantes.setVisible(false);
+                pnlFazerAvaliacao.setVisible(false);
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "Senha informada está incorreta.", "Erro", JOptionPane.ERROR_MESSAGE);
+                pnlLogin.setVisible(true);
+                pnlMainCadastrado.setVisible(false);
+                pnlRestaurantes.setVisible(false);
+                pnlMainVisitante.setVisible(false);
+                pnlMinhasAvaliacoes.setVisible(false);
+                pnlMeusRestaurantes.setVisible(false);
+                pnlFazerAvaliacao.setVisible(false);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Usuário informado não existe.", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btnAcessarLoginActionPerformed
 
     private void btnBuscarFazerAvaliacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarFazerAvaliacaoActionPerformed
@@ -768,7 +802,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
             float nota = Float.parseFloat(sNota);
             TableModel modelo = tblRestauranteAvaliacao.getModel(); 
             int idRestaurante = (int) tblRestauranteAvaliacao.getValueAt(restauranteEscolhido, 0);
-            ServicoAvaliacao.criaAvaliacao( ServicoUsuario.getSessaoUsuario().getIdUsuario(), idRestaurante, conteudo, nota);
+            ServicoAvaliacao.criaAvaliacao( ServicoUsuario.getUsuarioAtual().getIdUsuario(), idRestaurante, conteudo, nota);
             JOptionPane.showMessageDialog(null, "Avaliação registrada com sucesso",
                     "Mensagem", JOptionPane.INFORMATION_MESSAGE);
             limparAvalRestaurantes();

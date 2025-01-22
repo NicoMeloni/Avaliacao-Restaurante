@@ -85,7 +85,7 @@ public class UsuarioDAOLite implements UsuarioDAO{
         try (PreparedStatement comando = conexao.prepareStatement(
                 "INSERT INTO usuario(nome, senha, email) VALUES(?, ?, ?)"
                         + "RETURNING idUsuario;")) {
-            comando.setString(1, usuario.getNome());
+            comando.setString(1, usuario.getNomeUsuario());
             comando.setString(2, usuario.getSenha());
             comando.setString(3, usuario.getEmail());
             ResultSet id = comando.executeQuery();
@@ -107,7 +107,7 @@ public class UsuarioDAOLite implements UsuarioDAO{
         try (PreparedStatement comando = conexao.prepareStatement(
                 "INSERT INTO usuario(nome, senha, email) "
                 + "VALUES(?, ?, ?) RETURNING *;")) {
-            comando.setString(1, usuario.getNome());
+            comando.setString(1, usuario.getNomeUsuario());
             comando.setString(2, usuario.getSenha());
             comando.setString(3, usuario.getEmail());
             ResultSet ret = comando.executeQuery();
@@ -143,7 +143,7 @@ public class UsuarioDAOLite implements UsuarioDAO{
               SET nome = ?, senha = ?, email = ?,
               WHERE idUsuario = ?; 
         """)) {
-            comando.setString(1, usuario.getNome());
+            comando.setString(1, usuario.getNomeUsuario());
             comando.setString(2, usuario.getSenha());
             comando.setString(3, usuario.getEmail());
             comando.setInt(4, idUsuario);

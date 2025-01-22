@@ -5,12 +5,13 @@ public class Prato {
     int idPrato, idRestaurante;
     private String nome, descricao, imagem;
     float preco;
-
-    public Prato(int idRestaurante, String nome, String descricao, String imagem, float preco) {
+    
+    //Talvez retira nome
+    public Prato(int idPrato, int idRestaurante, String nome, String descricao, float preco) {
+        this.idPrato = idPrato;
         this.idRestaurante = idRestaurante;
         this.nome = nome;
         this.descricao = descricao;
-        this.imagem = imagem;
         this.preco = preco;
     }
 
