@@ -5,6 +5,8 @@
 package Interface;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import avaliaacaorestaurante.Usuario;
 
 /**
  *
@@ -67,6 +69,11 @@ public class TelaCriarConta extends javax.swing.JFrame {
         lblConfirmarSenha.setText("Confirmar Senha");
 
         btnCriarConta.setText("CRIAR CONTA");
+        btnCriarConta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCriarContaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -118,6 +125,21 @@ public class TelaCriarConta extends javax.swing.JFrame {
     private void txtConfirmarSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtConfirmarSenhaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtConfirmarSenhaActionPerformed
+
+    private void btnCriarContaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCriarContaActionPerformed
+        if (txtUsuario.getText().equals("") || txtSenha.getText().equals("") || txtConfirmarSenha.getText().equals(""))
+        { 
+            JOptionPane.showMessageDialog(null, "Preencha todos os campos", "Campos não preenchidos", JOptionPane.PLAIN_MESSAGE);
+        }
+        else if (!txtSenha.getText().equals(txtConfirmarSenha.getText()))
+        {
+            JOptionPane.showMessageDialog(null, "As senhas não coincidem", "Campos preenchidos incorretamente", JOptionPane.PLAIN_MESSAGE);
+        }
+        else
+        {
+            Usuario usercriado = new Usuario(txtUsuario.getText(), txtSenha.getText());
+        }
+    }//GEN-LAST:event_btnCriarContaActionPerformed
 
     /**
      * @param args the command line arguments
