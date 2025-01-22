@@ -2,7 +2,16 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package Interface;
+package telas;
+
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
+import modelos.Prato;
+import modelos.Restaurante;
+import permanencia.interfaces.PratoDAO;
+import servicos.ServicoPrato;
+import permanencia.interfaces.RestauranteDAO;
+import servicos.ServicoRestaurante;
 
 /**
  *
@@ -13,8 +22,27 @@ public class TelaVisualizarMenu extends javax.swing.JFrame {
     /**
      * Creates new form TelaVisualizarMenu
      */
-    public TelaVisualizarMenu() {
+    private ArrayList<Prato> listPratos = new ArrayList();
+    private String nomerestaurante = "Restaurante";
+    private int idrestaurante = -1;
+    private Restaurante rest;
+    public TelaVisualizarMenu(Restaurante restaurante) {
+        rest = restaurante;
+        nomerestaurante = restaurante.getNome();
+        idrestaurante = restaurante.getIdRestaurante();
         initComponents();
+        lbl_nomeres.setText(nomerestaurante);
+        ArrayList<Prato> templist = ServicoPrato.buscaTodos();
+        int i = 0;
+        int limit = templist.size();
+        while(i < limit) {
+            Prato prt = templist.get(i);
+            if (prt.getIdRestaurante() == idrestaurante) {
+                listPratos.add(prt);
+            }
+            i = i +1;
+        }
+        carregarTabelaPratos();
     }
 
     /**
@@ -27,12 +55,13 @@ public class TelaVisualizarMenu extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblVisualizarMenu = new javax.swing.JTable();
+        tblPratos = new javax.swing.JTable();
         lblNomeRestauranteVisualizarMenu = new javax.swing.JLabel();
+        lbl_nomeres = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        tblVisualizarMenu.setModel(new javax.swing.table.DefaultTableModel(
+        tblPratos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
                 {null, null, null},
@@ -42,10 +71,20 @@ public class TelaVisualizarMenu extends javax.swing.JFrame {
             new String [] {
                 "Prato", "Descrição", "Preço"
             }
-        ));
-        jScrollPane1.setViewportView(tblVisualizarMenu);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(tblPratos);
 
         lblNomeRestauranteVisualizarMenu.setText("Menu");
+
+        lbl_nomeres.setText("RESTAURANTE");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -58,14 +97,18 @@ public class TelaVisualizarMenu extends javax.swing.JFrame {
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(lblNomeRestauranteVisualizarMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(lblNomeRestauranteVisualizarMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lbl_nomeres)))
                 .addContainerGap(73, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lblNomeRestauranteVisualizarMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblNomeRestauranteVisualizarMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbl_nomeres))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 379, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(33, Short.MAX_VALUE))
@@ -104,14 +147,32 @@ public class TelaVisualizarMenu extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TelaVisualizarMenu().setVisible(true);
+                Restaurante testerest = ServicoRestaurante.buscarPorId(0);
+                if (testerest == null) {
+                    testerest = new Restaurante(0,-1,"Teste","TESTE","NADA",false);
+                }
+                new TelaVisualizarMenu(testerest).setVisible(true);
             }
         });
+    }
+    
+    public void carregarTabelaPratos() {
+        DefaultTableModel modeloPratos = new DefaultTableModel(new Object[] {"Prato","Descrição","Preço"},0);
+        for (int i=0;i<listPratos.size();i++) {
+            Prato prato = listPratos.get(i);
+            Object linha[] = new Object[]{prato.getNome(), 
+                prato.getDescricao(), String.format("%.2f",prato.getPreco()).replace(",", ".")
+            };
+            modeloPratos.addRow(linha);
+        }
+        tblPratos.setModel(modeloPratos);
+        tblPratos.setDefaultEditor(Object.class, null);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblNomeRestauranteVisualizarMenu;
-    private javax.swing.JTable tblVisualizarMenu;
+    private javax.swing.JLabel lbl_nomeres;
+    private javax.swing.JTable tblPratos;
     // End of variables declaration//GEN-END:variables
 }
