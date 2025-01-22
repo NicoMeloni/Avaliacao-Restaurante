@@ -196,8 +196,18 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
 
         btnMinhasAvMainCadastrado.setText("MINHAS AVALIAÇÕES");
+        btnMinhasAvMainCadastrado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMinhasAvMainCadastradoActionPerformed(evt);
+            }
+        });
 
         btnSairMainCadastrado.setText("SAIR");
+        btnSairMainCadastrado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSairMainCadastradoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnlMainCadastradoLayout = new javax.swing.GroupLayout(pnlMainCadastrado);
         pnlMainCadastrado.setLayout(pnlMainCadastradoLayout);
@@ -736,7 +746,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         pnlMinhasAvaliacoes.setVisible(false);
         pnlMeusRestaurantes.setVisible(false);
         pnlFazerAvaliacao.setVisible(false);
-    }
+    }                                                  
 
     private void btnMinhasAvMainCadastradoActionPerformed(java.awt.event.ActionEvent evt) {                                                          
         // TODO add your handling code here:
@@ -758,7 +768,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         pnlMinhasAvaliacoes.setVisible(false);
         pnlMeusRestaurantes.setVisible(false);
         pnlFazerAvaliacao.setVisible(false);
-    }        
+    }                                                     
 
     /**
      * @param args the command line arguments
