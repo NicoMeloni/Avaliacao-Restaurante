@@ -9,8 +9,6 @@ import java.sql.ResultSet;
 import java.sql.Connection;
 import java.util.ArrayList;
 import modelos.Restaurante;
-import modelos.Empresa;
-import modelos.Pessoa;
 import modelos.Usuario;
 
 
@@ -35,7 +33,7 @@ public class UsuarioDAOLite implements UsuarioDAO{
     
     @Override
     public Usuario buscarPorId(int idUsuario){
-        String documento, nome, senha, email;
+        String nome, senha, email;
         String dataCadastro;
         try (PreparedStatement comando = conexao.prepareStatement(
                 "select * from usuario where idUsuario = ?")) {
@@ -45,12 +43,8 @@ public class UsuarioDAOLite implements UsuarioDAO{
             nome = res.getString("nome");
             senha = res.getString("senha");
             email = res.getString("email");
-            documento = res.getString("documento");
             dataCadastro = res.getString("dataCadastro");
-            if (res.getString("tipoDocumento").equals("cpf")){
-                return new Pessoa(documento, nome, senha, email,idUsuario, dataCadastro);
-            }
-            return new Empresa(documento, nome, senha, email, idUsuario, dataCadastro);
+            return new Usuario(nome, senha, email, idUsuario, dataCadastro);
         }
         } 
         catch (SQLException ex) {
@@ -61,7 +55,7 @@ public class UsuarioDAOLite implements UsuarioDAO{
     
     @Override
     public Usuario buscarPorEmail(String userEmail){
-        String documento, nome, senha, email, dataCadastro;
+        String nome, senha, email, dataCadastro;
         int idUsuario;
         try (PreparedStatement comando = conexao.prepareStatement(
                 "select * from usuario where email = ?")) {
@@ -71,13 +65,9 @@ public class UsuarioDAOLite implements UsuarioDAO{
             nome = res.getString("nome");
             senha = res.getString("senha");
             email = res.getString("email");
-            documento = res.getString("documento");
             dataCadastro = res.getString("dataCadastro");
             idUsuario = res.getInt("idUsuario");
-            if (res.getString("tipoDocumento").equals("cpf")){
-                return new Pessoa(documento, nome, senha, email, idUsuario, dataCadastro);
-            }
-            return new Empresa(documento, nome, senha, email, idUsuario, dataCadastro);
+            return new Usuario(nome, senha, email, idUsuario, dataCadastro);
         }
         } 
         catch (SQLException ex) {
@@ -93,13 +83,11 @@ public class UsuarioDAOLite implements UsuarioDAO{
             return resultado;
         }
         try (PreparedStatement comando = conexao.prepareStatement(
-                "INSERT INTO usuario(nome, senha, email, documento, tipoDocumento) VALUES(?, ?, ?, ?, ?)"
+                "INSERT INTO usuario(nome, senha, email) VALUES(?, ?, ?)"
                         + "RETURNING idUsuario;")) {
             comando.setString(1, usuario.getNome());
             comando.setString(2, usuario.getSenha());
             comando.setString(3, usuario.getEmail());
-            comando.setString(4, usuario.getDocumento());
-            comando.setString(5, usuario instanceof Pessoa ? "cpf" : "cnpj");
             ResultSet id = comando.executeQuery();
             resultado = id.getInt("idUsuario");
         } 
@@ -111,31 +99,25 @@ public class UsuarioDAOLite implements UsuarioDAO{
     
     @Override
     public Usuario criarRet(Usuario usuario) {
-        String documento, nome, senha, email, dataCadastro;
+        String nome, senha, email, dataCadastro;
         int idUsuario;
         if (buscarPorEmail(usuario.getEmail()) != null){
             return null;
         }
         try (PreparedStatement comando = conexao.prepareStatement(
-                "INSERT INTO usuario(nome, senha, email, documento, tipoDocumento) "
-                + "VALUES(?, ?, ?, ?, ?) RETURNING *;")) {
+                "INSERT INTO usuario(nome, senha, email) "
+                + "VALUES(?, ?, ?) RETURNING *;")) {
             comando.setString(1, usuario.getNome());
             comando.setString(2, usuario.getSenha());
             comando.setString(3, usuario.getEmail());
-            comando.setString(4, usuario.getDocumento());
-            comando.setString(5, usuario instanceof Pessoa ? "cpf" : "cnpj");
             ResultSet ret = comando.executeQuery();
             if (ret.next()){
             nome = ret.getString("nome");
             senha = ret.getString("senha");
             email = ret.getString("email");
-            documento = ret.getString("documento");
             dataCadastro = ret.getString("dataCadastro");
             idUsuario = ret.getInt("idUsuario");
-            if (ret.getString("tipoDocumento").equals("cpf")){
-                return new Pessoa(documento, nome, senha, email,idUsuario, dataCadastro);
-            }
-                return new Empresa(documento, nome, senha, email, idUsuario, dataCadastro);
+            return new Usuario(nome, senha, email, idUsuario, dataCadastro);
             }
             
         } 
@@ -159,15 +141,12 @@ public class UsuarioDAOLite implements UsuarioDAO{
   """
               UPDATE usuario
               SET nome = ?, senha = ?, email = ?,
-              documento = ? , tipoDocumento = ?
               WHERE idUsuario = ?; 
         """)) {
             comando.setString(1, usuario.getNome());
             comando.setString(2, usuario.getSenha());
             comando.setString(3, usuario.getEmail());
-            comando.setString(4, usuario.getDocumento());
-            comando.setString(5, usuario instanceof Pessoa ? "cpf" : "cnpj");
-            comando.setInt(6, idUsuario);
+            comando.setInt(4, idUsuario);
             int res  = comando.executeUpdate();
             return res == 1;
         }}
@@ -179,7 +158,7 @@ public class UsuarioDAOLite implements UsuarioDAO{
     
     @Override
     public ArrayList<Usuario> buscarTodos(){
-        String documento, nome, senha, email, dataCadastro;
+        String nome, senha, email, dataCadastro;
         int idUsuario;
         ArrayList<Usuario> lista = new ArrayList<>();
         try (PreparedStatement comando = conexao.prepareStatement(
@@ -189,15 +168,10 @@ public class UsuarioDAOLite implements UsuarioDAO{
             nome = res.getString("nome");
             senha = res.getString("senha");
             email = res.getString("email");
-            documento = res.getString("documento");
             idUsuario = res.getInt("idUsuario");
             dataCadastro = res.getString("dataCadastro");
-            if (res.getString("tipoDocumento").equals("cpf")){
-                lista.add(new Pessoa(documento, nome, senha, email, idUsuario, dataCadastro));
-            }
-            else{
-                lista.add(new Empresa(documento, nome, senha, email, idUsuario, dataCadastro));
-            }
+            lista.add(new Usuario(nome, senha, email, idUsuario, dataCadastro));
+            
         }
         }
         catch (SQLException ex) {

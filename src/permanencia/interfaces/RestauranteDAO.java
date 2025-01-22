@@ -14,4 +14,5 @@ public interface RestauranteDAO{
     public ArrayList<Restaurante> buscarTodos();
     public ArrayList<Prato> buscarPratos(int idRestaurante);
     public ArrayList<Avaliacao> buscarAvaliacoes(int idAvaliacao);
+    public ArrayList<String[]> buscarResumo();
 }

@@ -10,6 +10,7 @@ import java.sql.Connection;
 
 import java.util.ArrayList;
 
+
 public class AvaliacaoDAOLite implements AvaliacaoDAO {
     Connection conexao;
     public AvaliacaoDAOLite() {

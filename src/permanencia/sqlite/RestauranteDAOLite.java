@@ -179,5 +179,34 @@ public class RestauranteDAOLite implements RestauranteDAO{
         } 
         return lista;
     }
+
+    @Override
+    public ArrayList<String[]> buscarResumo() {
+        String nome, count, media;
+        ArrayList<String[]> lista = new ArrayList<>();
+        
+        try (PreparedStatement comando = conexao.prepareStatement("""
+            SELECT 
+                rest.nome, 
+                COUNT(ava.idAvaliacao) AS contagem, 
+                AVG(ava.nota) AS media
+            FROM restaurante rest
+            LEFT JOIN avaliacao ava ON rest.idRestaurante = ava.idRestaurante
+            GROUP BY rest.idRestaurante, rest.nome;                                                
+            """)) {
+            ResultSet res  = comando.executeQuery();
+            while (res.next()) {
+                nome = res.getString("nome");
+                count = Integer.toString(res.getInt("contagem"));
+                media = String.format("%.2f", res.getFloat("media"));
+                lista.add(new String[] {nome, count, media});
+            }
+            
+        }catch (SQLException ex) {
+                System.out.println(ex);
+        }
+        return lista;
+    }
+    
         
 }

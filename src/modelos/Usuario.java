@@ -1,6 +1,6 @@
 package modelos;
 
-public abstract class Usuario {
+public class Usuario {
     protected String nome, senha, email, dataCadastro;
     protected int idUsuario;
     
@@ -17,10 +17,6 @@ public abstract class Usuario {
         this.idUsuario = idUsuario;
         this.dataCadastro = dataCadastro;
     }
-    
-    
-    
-    abstract public String getDocumento();
     
     @Override
     public String toString(){
