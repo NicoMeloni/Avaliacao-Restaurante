@@ -2,7 +2,19 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package Interface;
+package telas;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
+import modelos.Avaliacao;
+import modelos.Usuario;
+import modelos.Restaurante;
+import permanencia.interfaces.AvaliacaoDAO;
+import servicos.ServicoAvaliacao;
+import permanencia.interfaces.UsuarioDAO;
+import servicos.ServicoUsuario;
+import permanencia.interfaces.RestauranteDAO;
+import servicos.ServicoRestaurante;
+
 
 /**
  *
@@ -13,8 +25,27 @@ public class TelaVisualizarAvaliacoes extends javax.swing.JFrame {
     /**
      * Creates new form TelaVisualizarAvaliacoes
      */
-    public TelaVisualizarAvaliacoes() {
+    private ArrayList<Avaliacao> listAvaliacoes = new ArrayList();
+    private String nomerestaurante = "Restaurante";
+    private int idrestaurante = -1;
+    private Restaurante rest;
+    public TelaVisualizarAvaliacoes(Restaurante restaurante) {
+        rest = restaurante;
+        nomerestaurante = restaurante.getNome();
+        idrestaurante = restaurante.getIdRestaurante();
         initComponents();
+        lbl_nomeres.setText(nomerestaurante);
+        ArrayList<Avaliacao> templist = ServicoAvaliacao.buscaTodos();
+        int i = 0;
+        int limit = templist.size();
+        while(i < limit) {
+            Avaliacao ava = templist.get(i);
+            if (ava.getIdRestaurante() == idrestaurante) {
+                listAvaliacoes.add(ava);
+            }
+            i = i +1;
+        }
+        carregarTabelaAvaliacoes();
     }
 
     /**
@@ -27,12 +58,13 @@ public class TelaVisualizarAvaliacoes extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblAva = new javax.swing.JTable();
         lblNomeRestauranteVisualizarMenu = new javax.swing.JLabel();
+        lbl_nomeres = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblAva.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
                 {null, null, null},
@@ -43,9 +75,11 @@ public class TelaVisualizarAvaliacoes extends javax.swing.JFrame {
                 "Usuário", "Comentário", "Nota"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tblAva);
 
         lblNomeRestauranteVisualizarMenu.setText("Avaliações");
+
+        lbl_nomeres.setText("AVA");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -58,14 +92,18 @@ public class TelaVisualizarAvaliacoes extends javax.swing.JFrame {
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(14, 14, 14)
-                        .addComponent(lblNomeRestauranteVisualizarMenu)))
+                        .addComponent(lblNomeRestauranteVisualizarMenu)
+                        .addGap(18, 18, 18)
+                        .addComponent(lbl_nomeres)))
                 .addContainerGap(57, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(13, Short.MAX_VALUE)
-                .addComponent(lblNomeRestauranteVisualizarMenu)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblNomeRestauranteVisualizarMenu)
+                    .addComponent(lbl_nomeres))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 391, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(24, 24, 24))
@@ -104,14 +142,42 @@ public class TelaVisualizarAvaliacoes extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TelaVisualizarAvaliacoes().setVisible(true);
+                Restaurante testerest = ServicoRestaurante.buscarPorId(0);
+                if (testerest == null) {
+                    testerest = new Restaurante(0,-1,"Teste","TESTE","NADA",false);
+                }
+                new TelaVisualizarAvaliacoes(testerest).setVisible(true);
             }
         });
+    }
+    
+public void carregarTabelaAvaliacoes() {
+        DefaultTableModel modeloAvas = new DefaultTableModel(new Object[] {"Prato","Descrição","Preço"},0);
+        for (int i=0;i<listAvaliacoes.size();i++) {
+            Avaliacao avaliacao = listAvaliacoes.get(i);
+            int userid = avaliacao.getIdUsuario();
+            Usuario user = ServicoUsuario.buscarPorId(userid);
+            Object linha[];
+            if (user == null) {
+                linha = new Object[]{"TESTE", 
+                avaliacao.getConteudo(), avaliacao.getNota()
+                };
+            }
+            else {
+                linha = new Object[]{user.getNome(), 
+                avaliacao.getConteudo(), avaliacao.getNota()
+                };
+            }
+            modeloAvas.addRow(linha);
+        }
+        tblAva.setModel(modeloAvas);
+        tblAva.setDefaultEditor(Object.class, null);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JLabel lblNomeRestauranteVisualizarMenu;
+    private javax.swing.JLabel lbl_nomeres;
+    private javax.swing.JTable tblAva;
     // End of variables declaration//GEN-END:variables
 }

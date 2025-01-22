@@ -1,5 +1,6 @@
 package servicos;
 
+import java.util.ArrayList;
 import modelos.Avaliacao;
 import permanencia.sqlite.AvaliacaoDAOLite;
 
@@ -10,14 +11,21 @@ public class ServicoAvaliacao {
         int resposta = acesso.criar(avaliacao);
         return resposta;
     }
-    public static Avaliacao buscarPorId(int idAvaliacao){
-        AvaliacaoDAOLite acesso = new AvaliacaoDAOLite();
-        return acesso.buscarPorId(idAvaliacao);        
+    
+    public static ArrayList<Avaliacao> buscaTodos(){
+        AvaliacaoDAOLite acesso =  new AvaliacaoDAOLite();
+        return acesso.buscarTodos();
+    }
+    
+    public static Avaliacao buscarPorId(int id){
+        AvaliacaoDAOLite acesso =  new AvaliacaoDAOLite();
+        return acesso.buscarPorId(id);
     }
     public static boolean apagar(int idAvaliacao){
         AvaliacaoDAOLite acesso = new AvaliacaoDAOLite();
         return acesso.apagar(idAvaliacao);
     }
+      
     public static boolean atualizar(Avaliacao avaliacao, int idAvaliacao){
         AvaliacaoDAOLite acesso = new AvaliacaoDAOLite();
         return acesso.atualizar(avaliacao, idAvaliacao);

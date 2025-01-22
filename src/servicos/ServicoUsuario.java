@@ -6,6 +6,7 @@ import modelos.Usuario;
 import permanencia.sqlite.UsuarioDAOLite;
 
 public class ServicoUsuario {
+  
     private static Usuario usuarioAtual;
 
     public static int criar(Usuario usuario){
@@ -16,21 +17,19 @@ public class ServicoUsuario {
     public static Usuario getUsuarioAtual() {
         return usuarioAtual;
     }
+    
+    public static ArrayList<Usuario> buscaTodos(){
+        UsuarioDAOLite acesso =  new UsuarioDAOLite();
+        return acesso.buscarTodos();
+    }
 
-    public static void setUsuarioAtual(Usuario usuarioSessao) {
-        ServicoUsuario.usuarioAtual = usuarioSessao;
+    public static Usuario buscarPorId(int id){
+        UsuarioDAOLite acesso =  new UsuarioDAOLite();
+        return acesso.buscarPorId(id);
     }
-    
-    public static ArrayList<Usuario> getListaUsuarios(){
-        UsuarioDAOLite conexao = new UsuarioDAOLite();
-        return conexao.buscarTodos();
-    }
-    
+
     public static ArrayList<Avaliacao> buscarAvaliacoes(int idUsuario){
         UsuarioDAOLite conexao = new UsuarioDAOLite();
         return conexao.buscarAvaliacoes(idUsuario);
     }
-    
-    
-    
 }
