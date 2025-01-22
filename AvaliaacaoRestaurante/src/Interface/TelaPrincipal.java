@@ -671,6 +671,13 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void btnRestaurantesMainCadastradoActionPerformed(java.awt.event.ActionEvent evt) {                                                              
         // TODO add your handling code here:
+        pnlLogin.setVisible(false);
+        pnlMainCadastrado.setVisible(false);
+        pnlRestaurantes.setVisible(true);
+        pnlMainVisitante.setVisible(false);
+        pnlMinhasAvaliacoes.setVisible(false);
+        pnlMeusRestaurantes.setVisible(false);
+        pnlFazerAvaliacao.setVisible(false);
     }                                                             
 
     private void txtComentarioMinhasAvaliacoesActionPerformed(java.awt.event.ActionEvent evt) {                                                              
@@ -729,7 +736,29 @@ public class TelaPrincipal extends javax.swing.JFrame {
         pnlMinhasAvaliacoes.setVisible(false);
         pnlMeusRestaurantes.setVisible(false);
         pnlFazerAvaliacao.setVisible(false);
-    }                                                  
+    }
+
+    private void btnMinhasAvMainCadastradoActionPerformed(java.awt.event.ActionEvent evt) {                                                          
+        // TODO add your handling code here:
+        pnlLogin.setVisible(false);
+        pnlMainCadastrado.setVisible(false);
+        pnlRestaurantes.setVisible(false);
+        pnlMainVisitante.setVisible(false);
+        pnlMinhasAvaliacoes.setVisible(true);
+        pnlMeusRestaurantes.setVisible(false);
+        pnlFazerAvaliacao.setVisible(false);
+    }                                                         
+
+    private void btnSairMainCadastradoActionPerformed(java.awt.event.ActionEvent evt) {                                                      
+        // TODO add your handling code here:
+        pnlLogin.setVisible(true);
+        pnlMainCadastrado.setVisible(false);
+        pnlRestaurantes.setVisible(false);
+        pnlMainVisitante.setVisible(false);
+        pnlMinhasAvaliacoes.setVisible(false);
+        pnlMeusRestaurantes.setVisible(false);
+        pnlFazerAvaliacao.setVisible(false);
+    }        
 
     /**
      * @param args the command line arguments
