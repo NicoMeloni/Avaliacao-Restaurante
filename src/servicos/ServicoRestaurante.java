@@ -18,5 +18,10 @@ public class ServicoRestaurante {
     public static Restaurante buscarPorId(int id){
         RestauranteDAOLite acesso =  new RestauranteDAOLite();
         return acesso.buscarPorId(id);
+
+
+    public static String buscarNomeRestaurante(int idRestaurante){
+        RestauranteDAOLite acesso =  new RestauranteDAOLite();
+        return acesso.buscarPorId(idRestaurante).getNome();
     }
 }

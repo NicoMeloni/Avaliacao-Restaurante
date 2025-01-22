@@ -21,4 +21,13 @@ public class ServicoAvaliacao {
         AvaliacaoDAOLite acesso =  new AvaliacaoDAOLite();
         return acesso.buscarPorId(id);
     }
+    public static boolean apagar(int idAvaliacao){
+        AvaliacaoDAOLite acesso = new AvaliacaoDAOLite();
+        return acesso.apagar(idAvaliacao);
+    }
+      
+    public static boolean atualizar(Avaliacao avaliacao, int idAvaliacao){
+        AvaliacaoDAOLite acesso = new AvaliacaoDAOLite();
+        return acesso.atualizar(avaliacao, idAvaliacao);
+    }
 }

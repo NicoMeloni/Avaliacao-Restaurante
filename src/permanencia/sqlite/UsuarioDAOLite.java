@@ -54,12 +54,12 @@ public class UsuarioDAOLite implements UsuarioDAO{
     }
     
     @Override
-    public Usuario buscarPorEmail(String userEmail){
+    public Usuario buscarPorNome(String nomeUsuario){
         String nome, senha, email, dataCadastro;
         int idUsuario;
         try (PreparedStatement comando = conexao.prepareStatement(
-                "select * from usuario where email = ?")) {
-        comando.setString(1, userEmail);
+                "select * from usuario where nome = ?")) {
+        comando.setString(1, nomeUsuario);
         ResultSet res  = comando.executeQuery();
         if (res.next()){
             nome = res.getString("nome");
@@ -79,7 +79,7 @@ public class UsuarioDAOLite implements UsuarioDAO{
     @Override
     public int criar(Usuario usuario) {
         int resultado = 0;
-        if (buscarPorEmail(usuario.getEmail()) != null){
+        if (buscarPorNome(usuario.getNomeUsuario()) != null){
             return resultado;
         }
         try (PreparedStatement comando = conexao.prepareStatement(
@@ -101,7 +101,7 @@ public class UsuarioDAOLite implements UsuarioDAO{
     public Usuario criarRet(Usuario usuario) {
         String nome, senha, email, dataCadastro;
         int idUsuario;
-        if (buscarPorEmail(usuario.getEmail()) != null){
+        if (buscarPorNome(usuario.getEmail()) != null){
             return null;
         }
         try (PreparedStatement comando = conexao.prepareStatement(
