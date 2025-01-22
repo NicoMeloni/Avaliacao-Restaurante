@@ -11,6 +11,7 @@ import telas.TelaPrincipal;
 import java.sql.ResultSet;
 import permanencia.sqlite.RestauranteDAOLite;
 import permanencia.sqlite.UsuarioDAOLite;
+import telas.TelaCriarConta;
 
 
 public class Main {

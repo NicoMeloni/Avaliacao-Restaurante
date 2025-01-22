@@ -1,6 +1,6 @@
 package telas;
 
-import Interface.TelaCriarConta;
+import telas.TelaCriarConta;
 import java.awt.CardLayout;
 import java.util.ArrayList;
 import javax.swing.GroupLayout;
@@ -8,6 +8,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
+import modelos.Avaliacao;
 import modelos.Restaurante;
 import modelos.Usuario;
 import servicos.ServicoAvaliacao;
@@ -21,6 +22,16 @@ public class TelaPrincipal extends javax.swing.JFrame {
     
     public TelaPrincipal() {
         initComponents();
+        /*NICOLAS*/
+        setLocationRelativeTo(null);
+        /*NICOLAS - CONFIGURAÇÕES DE INIT*/
+        pnlLogin.setVisible(true);
+        pnlMainCadastrado.setVisible(false);
+        pnlRestaurantes.setVisible(false);
+        pnlMainVisitante.setVisible(false);
+        pnlMinhasAvaliacoes.setVisible(false);
+        pnlMeusRestaurantes.setVisible(false);
+        pnlFazerAvaliacao.setVisible(false);
         
     }
 
@@ -49,8 +60,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
         btnAcessarLogin = new javax.swing.JButton();
         lblError = new javax.swing.JLabel();
         lblCriarConta = new javax.swing.JLabel();
-        lblEmail = new javax.swing.JLabel();
-        txtEmail = new javax.swing.JTextField();
         pnlMainVisitante = new javax.swing.JPanel();
         txtBuscarRestauranteVisitante = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
@@ -111,8 +120,18 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
 
         btnMinhasAvMainCadastrado.setText("MINHAS AVALIAÇÕES");
+        btnMinhasAvMainCadastrado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMinhasAvMainCadastradoActionPerformed(evt);
+            }
+        });
 
         btnSairMainCadastrado.setText("SAIR");
+        btnSairMainCadastrado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSairMainCadastradoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnlMainCadastradoLayout = new javax.swing.GroupLayout(pnlMainCadastrado);
         pnlMainCadastrado.setLayout(pnlMainCadastradoLayout);
@@ -270,8 +289,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         });
 
-        lblEmail.setText("E-mail");
-
         javax.swing.GroupLayout pnlLoginLayout = new javax.swing.GroupLayout(pnlLogin);
         pnlLogin.setLayout(pnlLoginLayout);
         pnlLoginLayout.setHorizontalGroup(
@@ -279,51 +296,43 @@ public class TelaPrincipal extends javax.swing.JFrame {
             .addGroup(pnlLoginLayout.createSequentialGroup()
                 .addGroup(pnlLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlLoginLayout.createSequentialGroup()
-                        .addGap(367, 367, 367)
-                        .addGroup(pnlLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(pnlLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(pnlLoginLayout.createSequentialGroup()
+                                .addGap(339, 339, 339)
+                                .addGroup(pnlLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtSenhaLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtUsuarioLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblUsuario)
+                                    .addComponent(lblSenha))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlLoginLayout.createSequentialGroup()
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(btnAcessarLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblError, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(pnlLoginLayout.createSequentialGroup()
-                                .addComponent(lblCriarConta, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(137, 137, 137))))
+                                .addGap(67, 67, 67)))
+                        .addComponent(lblError, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pnlLoginLayout.createSequentialGroup()
-                        .addGap(328, 328, 328)
-                        .addGroup(pnlLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtSenhaLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtUsuarioLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblUsuario)
-                            .addComponent(lblEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblSenha))))
-                .addContainerGap(287, Short.MAX_VALUE))
+                        .addGap(387, 387, 387)
+                        .addComponent(lblCriarConta, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(207, Short.MAX_VALUE))
         );
         pnlLoginLayout.setVerticalGroup(
             pnlLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlLoginLayout.createSequentialGroup()
-                .addGap(110, 110, 110)
+                .addGap(168, 168, 168)
                 .addComponent(lblUsuario)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(txtUsuarioLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lblEmail)
-                .addGap(18, 18, 18)
-                .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(txtSenhaLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(35, 35, 35)
+                .addComponent(lblCriarConta)
+                .addGap(53, 53, 53)
                 .addGroup(pnlLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlLoginLayout.createSequentialGroup()
-                        .addGap(94, 94, 94)
-                        .addComponent(lblError, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(pnlLoginLayout.createSequentialGroup()
-                        .addGap(13, 13, 13)
-                        .addComponent(lblCriarConta)
-                        .addGap(40, 40, 40)
-                        .addComponent(btnAcessarLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(208, Short.MAX_VALUE))
+                    .addComponent(lblError, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnAcessarLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(193, Short.MAX_VALUE))
         );
 
         getContentPane().add(pnlLogin, "card2");
@@ -418,12 +427,27 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jScrollPane3.setViewportView(tblMinhasAvaliacoes);
 
         btnVoltarMinhasAvaliacoes.setText("VOLTAR");
+        btnVoltarMinhasAvaliacoes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVoltarMinhasAvaliacoesActionPerformed(evt);
+            }
+        });
 
         btnEditarMinhasAvaliacoes.setText("EDITAR");
+        btnEditarMinhasAvaliacoes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarMinhasAvaliacoesActionPerformed(evt);
+            }
+        });
 
         btnSalvarMinhasAvaliacoes.setText("SAVAR");
 
         btnExcluirMinhasAvaliacoes.setText("EXCLUIR");
+        btnExcluirMinhasAvaliacoes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirMinhasAvaliacoesActionPerformed(evt);
+            }
+        });
 
         jLabel5.setText("Comentário");
 
@@ -436,6 +460,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jLabel6.setText("Nota");
 
         btnBuscarMinhasAvaliacoes.setText("S");
+        btnBuscarMinhasAvaliacoes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarMinhasAvaliacoesActionPerformed(evt);
+            }
+        });
 
         jLabel7.setText("Buscar Restaurante");
 
@@ -715,8 +744,13 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_txtComentarioMinhasAvaliacoesActionPerformed
 
     private void btnRestaurantesMainCadastradoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRestaurantesMainCadastradoActionPerformed
+        pnlLogin.setVisible(false);
         pnlMainCadastrado.setVisible(false);
         pnlRestaurantes.setVisible(true);
+        pnlMainVisitante.setVisible(false);
+        pnlMinhasAvaliacoes.setVisible(false);
+        pnlMeusRestaurantes.setVisible(false);
+        pnlFazerAvaliacao.setVisible(false);
     }//GEN-LAST:event_btnRestaurantesMainCadastradoActionPerformed
 
     private void txtUsuarioLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsuarioLoginActionPerformed
@@ -724,8 +758,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_txtUsuarioLoginActionPerformed
 
     private void lblCriarContaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCriarContaMouseClicked
-        TelaCriarConta telacadastro = new TelaCriarConta();
-        telacadastro.setVisible(true);
+        TelaCriarConta telaCriarConta = new TelaCriarConta();
+        telaCriarConta.setVisible(true);
     }//GEN-LAST:event_lblCriarContaMouseClicked
 
     private void btnAcessarLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAcessarLoginActionPerformed
@@ -741,7 +775,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         if (usuarioEncontrado != null) {
             if (usuarioEncontrado.getSenha().equals(senha)){
                 
-                ServicoUsuario.usuarioAtual = usuarioEncontrado;
+                ServicoUsuario.setUsuarioAtual(usuarioEncontrado);
                 pnlLogin.setVisible(false);
                 pnlMainCadastrado.setVisible(true);
                 pnlRestaurantes.setVisible(false);
@@ -851,6 +885,101 @@ public class TelaPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnBuscarRestaurantesActionPerformed
 
+    private void btnMinhasAvMainCadastradoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMinhasAvMainCadastradoActionPerformed
+        pnlLogin.setVisible(false);
+        pnlMainCadastrado.setVisible(false);
+        pnlRestaurantes.setVisible(false);
+        pnlMainVisitante.setVisible(false);
+        pnlMinhasAvaliacoes.setVisible(true);
+        pnlMeusRestaurantes.setVisible(false);
+        pnlFazerAvaliacao.setVisible(false);
+        carregarTblMinhasAvaliacoes(ServicoUsuario.getUsuarioAtual());
+        btnExcluirMinhasAvaliacoes.setEnabled(false);
+        btnSalvarMinhasAvaliacoes.setEnabled(false);
+        btnEditarMinhasAvaliacoes.setEnabled(false);
+        txtComentarioMinhasAvaliacoes.setEnabled(false);
+        txtNotaMinhasAvaliacoes.setEnabled(false);
+    }//GEN-LAST:event_btnMinhasAvMainCadastradoActionPerformed
+
+    private void btnSairMainCadastradoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairMainCadastradoActionPerformed
+        ServicoUsuario.setUsuarioAtual(null);
+        pnlLogin.setVisible(true);
+        pnlMainCadastrado.setVisible(false);
+        pnlRestaurantes.setVisible(false);
+        pnlMainVisitante.setVisible(false);
+        pnlMinhasAvaliacoes.setVisible(false);
+        pnlMeusRestaurantes.setVisible(false);
+        pnlFazerAvaliacao.setVisible(false);
+        
+        txtUsuarioLogin.setText("");
+        txtSenhaLogin.setText("");
+    }//GEN-LAST:event_btnSairMainCadastradoActionPerformed
+
+    private void btnVoltarMinhasAvaliacoesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarMinhasAvaliacoesActionPerformed
+        pnlLogin.setVisible(false);
+        pnlMainCadastrado.setVisible(true);
+        pnlRestaurantes.setVisible(false);
+        pnlMainVisitante.setVisible(false);
+        pnlMinhasAvaliacoes.setVisible(false);
+        pnlMeusRestaurantes.setVisible(false);
+        pnlFazerAvaliacao.setVisible(false);
+        txtComentarioMinhasAvaliacoes.setText("");
+        txtNotaMinhasAvaliacoes.setText("");
+    }//GEN-LAST:event_btnVoltarMinhasAvaliacoesActionPerformed
+
+    private void btnEditarMinhasAvaliacoesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarMinhasAvaliacoesActionPerformed
+        btnExcluirMinhasAvaliacoes.setEnabled(false);
+        btnSalvarMinhasAvaliacoes.setEnabled(true);
+        btnEditarMinhasAvaliacoes.setEnabled(false);
+        txtComentarioMinhasAvaliacoes.setEnabled(true);
+        txtNotaMinhasAvaliacoes.setEnabled(true);
+    }//GEN-LAST:event_btnEditarMinhasAvaliacoesActionPerformed
+
+    private void btnExcluirMinhasAvaliacoesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirMinhasAvaliacoesActionPerformed
+        /*int i = tblMinhasAvaliacoes.getSelectedRow();
+                
+        if(i>=0 && i<usuarioAtual.getListaAvaliacoes().size()){
+            int opcaoSelecionada = JOptionPane.showConfirmDialog(null, "Deseja remover a avaliação selecionada?", "Confirmação de Remoção", JOptionPane.YES_NO_OPTION);
+            if(opcaoSelecionada == JOptionPane.YES_OPTION){
+                Avaliacao removida = usuarioAtual.getListaAvaliacoes().get(i);
+                usuarioAtual.getListaAvaliacoes().remove(removida);
+            }
+        }
+        
+        btnExcluirMinhasAvaliacoes.setEnabled(false);
+        btnSalvarMinhasAvaliacoes.setEnabled(false);
+        btnEditarMinhasAvaliacoes.setEnabled(false);
+        txtComentarioMinhasAvaliacoes.setEnabled(false);
+        txtNotaMinhasAvaliacoes.setEnabled(false);
+        txtComentarioMinhasAvaliacoes.setText("");
+        txtNotaMinhasAvaliacoes.setText("");
+        
+        carregarTblMinhasAvaliacoes(usuarioAtual);*/
+    }//GEN-LAST:event_btnExcluirMinhasAvaliacoesActionPerformed
+
+    private void btnBuscarMinhasAvaliacoesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarMinhasAvaliacoesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnBuscarMinhasAvaliacoesActionPerformed
+    
+    // Utils pnlMain Cadastrado
+    /*NIOCLAS*/
+    public void carregarTblMinhasAvaliacoes(Usuario usuario){
+        DefaultTableModel modelo = new DefaultTableModel(new Object[] {"Restaurante","Comentário","Nota"}, 0);
+        System.out.println(ServicoUsuario.getUsuarioAtual().getIdUsuario());
+        ArrayList<Avaliacao> avaliacoes = ServicoUsuario.buscarAvaliacoes(ServicoUsuario.getUsuarioAtual().getIdUsuario());
+        System.out.println(avaliacoes);
+        for (Avaliacao avaliacao : avaliacoes){
+            Object linha[] = new Object[] {ServicoRestaurante.buscarNomeRestaurante(avaliacao.getIdRestaurante()),avaliacao.getConteudo(),avaliacao.getNota(), "--"};
+            
+            modelo.addRow(linha);
+        }
+        
+        tblMinhasAvaliacoes.setModel(modelo);
+    }
+    
+    
+    
+    
     // Utils pnlFazerAvaliação
     
     private void limparAvalRestaurantes(){
@@ -907,7 +1036,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JLabel lblCriarConta;
-    private javax.swing.JLabel lblEmail;
     private javax.swing.JLabel lblError;
     private javax.swing.JLabel lblSenha;
     private javax.swing.JLabel lblUsuario;
@@ -930,7 +1058,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JTextField txtBuscarRestauranteVisitante;
     private javax.swing.JTextArea txtComentario;
     private javax.swing.JTextField txtComentarioMinhasAvaliacoes;
-    private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtNotaAvaliacao;
     private javax.swing.JTextField txtNotaMinhasAvaliacoes;
     private javax.swing.JTextField txtSenhaLogin;

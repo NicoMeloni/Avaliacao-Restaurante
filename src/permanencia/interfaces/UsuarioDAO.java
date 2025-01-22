@@ -13,6 +13,6 @@ public interface UsuarioDAO {
     public ArrayList<Usuario> buscarTodos();
     public ArrayList<Restaurante> buscarRestaurantes(int udUsuario);
     public ArrayList<Avaliacao> buscarAvaliacoes(int idAvaliacoes);
-    public Usuario buscarPorEmail(String userEmail);
+    public Usuario buscarPorNome(String userEmail);
     public Usuario criarRet(Usuario usuario);
 }

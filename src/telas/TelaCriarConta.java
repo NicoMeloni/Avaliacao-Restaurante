@@ -1,20 +1,18 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
-package Interface;
+package telas;
 
-/**
- *
- * @author Nicopau
- */
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import modelos.Usuario;
+import servicos.ServicoUsuario;
+
 public class TelaCriarConta extends javax.swing.JFrame {
 
-    /**
-     * Creates new form TelaCriarConta
-     */
     public TelaCriarConta() {
         initComponents();
+        /*NICOLAS - edição*/
+        setLocationRelativeTo(null);
+        /*NICOLAS - edição*/
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
 
     /**
@@ -61,6 +59,11 @@ public class TelaCriarConta extends javax.swing.JFrame {
         lblConfirmarSenha.setText("Confirmar Senha");
 
         btnCriarConta.setText("CRIAR CONTA");
+        btnCriarConta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCriarContaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -113,40 +116,26 @@ public class TelaCriarConta extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtConfirmarSenhaActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TelaCriarConta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TelaCriarConta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TelaCriarConta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TelaCriarConta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+    private void btnCriarContaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCriarContaActionPerformed
+        if (txtUsuario.getText().isBlank() || txtSenha.getText().isBlank() || txtConfirmarSenha.getText().isBlank()){ 
+            JOptionPane.showMessageDialog(null, "Preencha todos os campos", "Campos não preenchidos", JOptionPane.PLAIN_MESSAGE);
         }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new TelaCriarConta().setVisible(true);
+        else if (!txtSenha.getText().equals(txtConfirmarSenha.getText())){
+            JOptionPane.showMessageDialog(null, "As senhas não coincidem", "Campos preenchidos incorretamente", JOptionPane.PLAIN_MESSAGE);
+        }
+        else{
+            Usuario ususariocriado = new Usuario(txtUsuario.getText(), txtSenha.getText());
+            int resposta = ServicoUsuario.criar(ususariocriado);
+            if (resposta != 0){
+               JOptionPane.showMessageDialog(null, "Cadastro concluido!", "Mensagem", JOptionPane.INFORMATION_MESSAGE);
+                this.dispose(); 
             }
-        });
-    }
+            
+            JOptionPane.showMessageDialog(null, "Usuário Já está em uso", "Mensagem", JOptionPane.WARNING_MESSAGE);
+            
+        }
+    }//GEN-LAST:event_btnCriarContaActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCriarConta;

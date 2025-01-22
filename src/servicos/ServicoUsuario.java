@@ -1,12 +1,18 @@
 package servicos;
 
 import java.util.ArrayList;
+import modelos.Avaliacao;
 import modelos.Usuario;
 import permanencia.sqlite.UsuarioDAOLite;
 
 public class ServicoUsuario {
-    public static Usuario usuarioAtual;
+    private static Usuario usuarioAtual;
 
+    public static int criar(Usuario usuario){
+        UsuarioDAOLite conexao = new UsuarioDAOLite();
+        return conexao.criar(usuario);
+    }
+    
     public static Usuario getUsuarioAtual() {
         return usuarioAtual;
     }
@@ -20,6 +26,10 @@ public class ServicoUsuario {
         return conexao.buscarTodos();
     }
     
+    public static ArrayList<Avaliacao> buscarAvaliacoes(int idUsuario){
+        UsuarioDAOLite conexao = new UsuarioDAOLite();
+        return conexao.buscarAvaliacoes(idUsuario);
+    }
     
     
     
