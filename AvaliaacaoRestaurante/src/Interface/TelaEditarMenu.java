@@ -15,6 +15,9 @@ public class TelaEditarMenu extends javax.swing.JFrame {
      */
     public TelaEditarMenu() {
         initComponents();
+        /*NICOLAS - edição*/
+        setLocationRelativeTo(null);
+        /*NICOLAS - edição*/
     }
 
     /**
