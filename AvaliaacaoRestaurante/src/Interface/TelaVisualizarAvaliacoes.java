@@ -15,6 +15,9 @@ public class TelaVisualizarAvaliacoes extends javax.swing.JFrame {
      */
     public TelaVisualizarAvaliacoes() {
         initComponents();
+        /*NICOLAS - edição*/
+        setLocationRelativeTo(null);
+        /*NICOLAS - edição*/
     }
 
     /**
