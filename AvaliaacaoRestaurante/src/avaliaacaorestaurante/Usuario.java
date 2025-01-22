@@ -4,14 +4,21 @@
  */
 package avaliaacaorestaurante;
 
+import java.util.ArrayList;
+
+
 public class Usuario {
     protected String usuario, senha, dataCadastro;
     protected int idUsuario;
+    
     private static ArrayList<Usuario> listaUsuarios = new ArrayList<>();
 
+    
+    
     public Usuario(String usuario, String senha) {
         this.usuario = usuario;
         this.senha = senha;
+        this.listaUsuarios.add(this);
     }
     
     public Usuario(String usuario, String senha, int idUsuario, String dataCadastro) {
