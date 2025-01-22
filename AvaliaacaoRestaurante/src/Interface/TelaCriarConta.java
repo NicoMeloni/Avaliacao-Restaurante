@@ -15,6 +15,9 @@ public class TelaCriarConta extends javax.swing.JFrame {
      */
     public TelaCriarConta() {
         initComponents();
+        /*NICOLAS - edição*/
+        setLocationRelativeTo(null);
+        /*NICOLAS - edição*/
     }
 
     /**
