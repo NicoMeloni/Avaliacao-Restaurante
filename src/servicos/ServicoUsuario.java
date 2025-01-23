@@ -17,6 +17,10 @@ public class ServicoUsuario {
     public static Usuario getUsuarioAtual() {
         return usuarioAtual;
     }
+
+    public static void setUsuarioAtual(Usuario usuarioAtual) {
+        ServicoUsuario.usuarioAtual = usuarioAtual;
+    }
     
     public static ArrayList<Usuario> buscaTodos(){
         UsuarioDAOLite acesso =  new UsuarioDAOLite();

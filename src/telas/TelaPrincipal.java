@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import javax.swing.GroupLayout;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import modelos.Avaliacao;
@@ -61,6 +62,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         btnAcessarLogin = new javax.swing.JButton();
         lblError = new javax.swing.JLabel();
         lblCriarConta = new javax.swing.JLabel();
+        lblEntrarVisitante = new javax.swing.JLabel();
         pnlMainVisitante = new javax.swing.JPanel();
         txtBuscarRestauranteVisitante = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
@@ -68,6 +70,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         tblRestauranteVisitante = new javax.swing.JTable();
         btnSairVisitante = new javax.swing.JButton();
+        btnVerCard = new javax.swing.JButton();
+        btnVerAval = new javax.swing.JButton();
         pnlMinhasAvaliacoes = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         tblMinhasAvaliacoes = new javax.swing.JTable();
@@ -290,6 +294,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         });
 
+        lblEntrarVisitante.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblEntrarVisitante.setText("Entrar como Visitante");
+        lblEntrarVisitante.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblEntrarVisitanteMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnlLoginLayout = new javax.swing.GroupLayout(pnlLogin);
         pnlLogin.setLayout(pnlLoginLayout);
         pnlLoginLayout.setHorizontalGroup(
@@ -313,7 +325,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
                         .addComponent(lblError, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pnlLoginLayout.createSequentialGroup()
                         .addGap(387, 387, 387)
-                        .addComponent(lblCriarConta, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(lblCriarConta, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnlLoginLayout.createSequentialGroup()
+                        .addGap(366, 366, 366)
+                        .addComponent(lblEntrarVisitante, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(207, Short.MAX_VALUE))
         );
         pnlLoginLayout.setVerticalGroup(
@@ -329,7 +344,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 .addComponent(txtSenhaLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(35, 35, 35)
                 .addComponent(lblCriarConta)
-                .addGap(53, 53, 53)
+                .addGap(19, 19, 19)
+                .addComponent(lblEntrarVisitante)
+                .addGap(18, 18, 18)
                 .addGroup(pnlLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblError, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnAcessarLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -337,6 +354,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
         );
 
         getContentPane().add(pnlLogin, "card2");
+
+        pnlMainVisitante.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                pnlMainVisitanteComponentShown(evt);
+            }
+        });
 
         jLabel4.setText("Buscar Restaurante");
 
@@ -361,32 +384,58 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
+        tblRestauranteVisitante.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblRestauranteVisitanteMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(tblRestauranteVisitante);
 
         btnSairVisitante.setText("SAIR");
+        btnSairVisitante.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSairVisitanteActionPerformed(evt);
+            }
+        });
+
+        btnVerCard.setText("Ver Cardápio");
+        btnVerCard.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVerCardActionPerformed(evt);
+            }
+        });
+
+        btnVerAval.setText("Ver Avaliacoes");
+        btnVerAval.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVerAvalActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnlMainVisitanteLayout = new javax.swing.GroupLayout(pnlMainVisitante);
         pnlMainVisitante.setLayout(pnlMainVisitanteLayout);
         pnlMainVisitanteLayout.setHorizontalGroup(
             pnlMainVisitanteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlMainVisitanteLayout.createSequentialGroup()
+                .addGap(389, 389, 389)
+                .addGroup(pnlMainVisitanteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel4)
+                    .addGroup(pnlMainVisitanteLayout.createSequentialGroup()
+                        .addComponent(txtBuscarRestauranteVisitante, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnBuscarRestVisitante, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(312, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlMainVisitanteLayout.createSequentialGroup()
                 .addContainerGap(103, Short.MAX_VALUE)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 678, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(pnlMainVisitanteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(pnlMainVisitanteLayout.createSequentialGroup()
+                        .addComponent(btnVerAval, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnSairVisitante, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(145, 145, 145)
+                        .addComponent(btnVerCard, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 678, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(109, 109, 109))
-            .addGroup(pnlMainVisitanteLayout.createSequentialGroup()
-                .addGroup(pnlMainVisitanteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlMainVisitanteLayout.createSequentialGroup()
-                        .addGap(389, 389, 389)
-                        .addGroup(pnlMainVisitanteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
-                            .addGroup(pnlMainVisitanteLayout.createSequentialGroup()
-                                .addComponent(txtBuscarRestauranteVisitante, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnBuscarRestVisitante, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(pnlMainVisitanteLayout.createSequentialGroup()
-                        .addGap(373, 373, 373)
-                        .addComponent(btnSairVisitante, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pnlMainVisitanteLayout.setVerticalGroup(
             pnlMainVisitanteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -400,8 +449,13 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 .addGap(30, 30, 30)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 358, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(31, 31, 31)
-                .addComponent(btnSairVisitante, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(54, Short.MAX_VALUE))
+                .addGroup(pnlMainVisitanteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnSairVisitante, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(pnlMainVisitanteLayout.createSequentialGroup()
+                        .addGap(1, 1, 1)
+                        .addComponent(btnVerAval, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnVerCard, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(48, Short.MAX_VALUE))
         );
 
         getContentPane().add(pnlMainVisitante, "card5");
@@ -483,19 +537,18 @@ public class TelaPrincipal extends javax.swing.JFrame {
         pnlMinhasAvaliacoes.setLayout(pnlMinhasAvaliacoesLayout);
         pnlMinhasAvaliacoesLayout.setHorizontalGroup(
             pnlMinhasAvaliacoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlMinhasAvaliacoesLayout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addComponent(btnVoltarMinhasAvaliacoes)
-                .addGap(264, 264, 264)
-                .addGroup(pnlMinhasAvaliacoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel7)
-                    .addGroup(pnlMinhasAvaliacoesLayout.createSequentialGroup()
-                        .addComponent(txtBuscarMinhasAvaliacoes, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnBuscarMinhasAvaliacoes, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(pnlMinhasAvaliacoesLayout.createSequentialGroup()
                 .addGroup(pnlMinhasAvaliacoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlMinhasAvaliacoesLayout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addComponent(btnVoltarMinhasAvaliacoes)
+                        .addGap(264, 264, 264)
+                        .addGroup(pnlMinhasAvaliacoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel7)
+                            .addGroup(pnlMinhasAvaliacoesLayout.createSequentialGroup()
+                                .addComponent(txtBuscarMinhasAvaliacoes, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnBuscarMinhasAvaliacoes, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(pnlMinhasAvaliacoesLayout.createSequentialGroup()
                         .addGap(105, 105, 105)
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 656, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -516,7 +569,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
                                 .addGroup(pnlMinhasAvaliacoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel6)
                                     .addComponent(txtNotaMinhasAvaliacoes, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                .addContainerGap(129, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pnlMinhasAvaliacoesLayout.setVerticalGroup(
             pnlMinhasAvaliacoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -779,7 +832,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         String usuario = txtUsuarioLogin.getText();
         String senha = txtSenhaLogin.getText();
         
-        Usuario usuarioEncontrado = ServicoUsuario.getListaUsuarios().stream()
+        Usuario usuarioEncontrado = ServicoUsuario.buscaTodos().stream()
             .filter(u -> u.getNomeUsuario().equals(usuario))
             .findFirst()
             .orElse(null);
@@ -875,14 +928,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_pnlMainCadastradoComponentShown
 
     private void pnlRestaurantesComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_pnlRestaurantesComponentShown
-        final var colunas = new Object[] {"Restaurantes","Avaliações", " Média Notas"};
-        DefaultTableModel modeloRestaurante = new DefaultTableModel(colunas,0);
-        for (String[] resumo : ServicoRestaurante.buscaResumo()){
-            Object linha[] = new Object[] {resumo[0], resumo[1], resumo[2]};
-            modeloRestaurante.addRow(linha);
-        }
-        tblRestaurantes.setModel(modeloRestaurante);
-        tblRestaurantes.setDefaultEditor(Object.class, null);
+        carregaResumo(tblRestaurantes);
     }//GEN-LAST:event_pnlRestaurantesComponentShown
 
     private void btnBuscarRestaurantesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarRestaurantesActionPerformed
@@ -1003,6 +1049,60 @@ public class TelaPrincipal extends javax.swing.JFrame {
             txtNotaMinhasAvaliacoes.setText(  Float.toString( (float) tblMinhasAvaliacoes.getValueAt(i, 3)));
         }
     }//GEN-LAST:event_tblMinhasAvaliacoesMouseClicked
+
+    private void pnlMainVisitanteComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_pnlMainVisitanteComponentShown
+        carregaResumo(tblRestauranteVisitante);
+        btnVerAval.setEnabled(false);
+        btnVerCard.setEnabled(false);
+    }//GEN-LAST:event_pnlMainVisitanteComponentShown
+
+    private void btnSairVisitanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairVisitanteActionPerformed
+        pnlMainVisitante.setVisible(false);
+        pnlLogin.setVisible(true);
+    }//GEN-LAST:event_btnSairVisitanteActionPerformed
+
+    private void lblEntrarVisitanteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEntrarVisitanteMouseClicked
+        pnlLogin.setVisible(false);
+        pnlMainVisitante.setVisible(true);
+    }//GEN-LAST:event_lblEntrarVisitanteMouseClicked
+
+    private void btnVerAvalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerAvalActionPerformed
+        int index = tblRestauranteVisitante.getSelectedRow();
+        if (index != -1){
+            int id = Integer.parseInt( (String) tblRestauranteVisitante.getValueAt(index, 0));
+            Restaurante res = ServicoRestaurante.buscarPorId(id);
+            TelaVisualizarAvaliacoes tela = new TelaVisualizarAvaliacoes(res);
+            tela.setVisible(true);
+        }
+    }//GEN-LAST:event_btnVerAvalActionPerformed
+
+    private void btnVerCardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerCardActionPerformed
+        int index = tblRestauranteVisitante.getSelectedRow();
+        if (index != -1){
+            int id = Integer.parseInt( (String) tblRestauranteVisitante.getValueAt(index, 0));
+            Restaurante res = ServicoRestaurante.buscarPorId(id);
+            TelaVisualizarMenu tela = new TelaVisualizarMenu(res);
+            tela.setVisible(true);
+        }
+    }//GEN-LAST:event_btnVerCardActionPerformed
+
+    private void tblRestauranteVisitanteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblRestauranteVisitanteMouseClicked
+        btnVerAval.setEnabled(true);
+        btnVerCard.setEnabled(true);
+    }//GEN-LAST:event_tblRestauranteVisitanteMouseClicked
+    //Urils PNLs avaliacoes
+    private void carregaResumo(JTable table){
+    final var colunas = new Object[] {"ID", "Restaurantes","Avaliações", " Média Notas"};
+        DefaultTableModel modeloRestaurante = new DefaultTableModel(colunas,0);
+        for (String[] resumo : ServicoRestaurante.buscaResumo()){
+            Object linha[] = new Object[] {resumo[0], resumo[1], resumo[2], resumo[3]};
+            modeloRestaurante.addRow(linha);
+        }
+        table.setModel(modeloRestaurante);
+        table.setDefaultEditor(Object.class, null);
+    
+    }
+    
     
     // Utils pnlMain Cadastrado
     /*NIOCLAS*/
@@ -1059,6 +1159,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btnSairVisitante;
     private javax.swing.JButton btnSalvarFazerAvaliacao;
     private javax.swing.JButton btnSalvarMinhasAvaliacoes;
+    private javax.swing.JButton btnVerAval;
+    private javax.swing.JButton btnVerCard;
     private javax.swing.JButton btnVoltarFazerAvaliacao;
     private javax.swing.JButton btnVoltarMeusRestaurantes;
     private javax.swing.JButton btnVoltarMinhasAvaliacoes;
@@ -1079,6 +1181,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JLabel lblCriarConta;
+    private javax.swing.JLabel lblEntrarVisitante;
     private javax.swing.JLabel lblError;
     private javax.swing.JLabel lblSenha;
     private javax.swing.JLabel lblUsuario;

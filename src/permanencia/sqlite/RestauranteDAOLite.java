@@ -182,11 +182,12 @@ public class RestauranteDAOLite implements RestauranteDAO{
 
     @Override
     public ArrayList<String[]> buscarResumo() {
-        String nome, count, media;
+        String idRestaurante, nome, count, media;
         ArrayList<String[]> lista = new ArrayList<>();
         
         try (PreparedStatement comando = conexao.prepareStatement("""
-            SELECT 
+            SELECT
+                rest.idRestaurante,                                                
                 rest.nome, 
                 COUNT(ava.idAvaliacao) AS contagem, 
                 AVG(ava.nota) AS media
@@ -196,10 +197,11 @@ public class RestauranteDAOLite implements RestauranteDAO{
             """)) {
             ResultSet res  = comando.executeQuery();
             while (res.next()) {
+                idRestaurante = Integer.toString(res.getInt("idRestaurante"));
                 nome = res.getString("nome");
                 count = Integer.toString(res.getInt("contagem"));
                 media = String.format("%.2f", res.getFloat("media"));
-                lista.add(new String[] {nome, count, media});
+                lista.add(new String[] {idRestaurante, nome, count, media});
             }
             
         }catch (SQLException ex) {
